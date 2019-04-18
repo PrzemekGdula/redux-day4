@@ -1,7 +1,25 @@
-import { auth, googleProvider, databse } from '../firebaseConf'
+import { auth, googleProvider, database } from '../firebaseConf'
 
 const EMAIL_CHANGED = 'auth/EMAIL_CHANGED'
 const PASS_CHANGED = 'auth/PASS_CHANGED'
+const SET_USER = 'auth/SET_USER'
+
+export const startListeningToAuthChangesAsyncctionCreator = (
+    () => (dispatch, getState) => {
+        auth.onAuthStateChanged(
+            (user) => {
+                if (user)  {
+                    //USER LOGGED IN
+                }else {
+                    // USER NOT LOGGED IN
+                }
+                console.log(user)
+                dispatch(setUserActionCreator(user))
+            }
+        )
+
+    }
+)
 
 export const logInAsyncActionCreator = () => (dispatch, getState) => {
     const state = getState()
@@ -12,6 +30,11 @@ export const logInAsyncActionCreator = () => (dispatch, getState) => {
         .then(() => console.log('ZALOGOWANO'))
         .catch((error) => console.log('WYSTĄPIŁ BŁĄD', error))
 }
+
+const setUserActionCreator = user => ({
+    type: SET_USER,
+    user,
+})
 
 export const emailChangedActionCreator = newValue => ({
     type: EMAIL_CHANGED,
@@ -39,6 +62,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 password: action.newValue,
+            }
+        case SET_USER:
+            return {
+                ...state,
+                user: action.user,
             }
 
         default:

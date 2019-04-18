@@ -6,6 +6,9 @@ import {Provider} from 'react-redux'
 
 import App from './App'
 import Auth from './Auth'
+import { startListeningToAuthChangesAsyncctionCreator } from './state/auth';
+
+
 
 ReactDOM.render(
     <Provider store={store}>
