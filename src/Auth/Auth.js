@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { connect } from 'react-redux'
-import {emailChangedActionCreator} from '../state/auth'
+import {emailChangedActionCreator, passChangedActionCreator} from '../state/auth'
 
 import Forms from './Forms'
 
@@ -16,7 +16,7 @@ const Auth = (props) => (
                     password={props._password}
 
                     onEmailChange={props._onEmailChange}
-                    onPasswordChange={() => { }}
+                    onPasswordChange={props._onPassChange}
 
                     onLogInClick={() => { }}
 
@@ -34,7 +34,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-_onEmailChange: (event)=> dispatch(emailChangedActionCreator(event.target.value))
+_onEmailChange: (event)=> dispatch(emailChangedActionCreator(event.target.value)),
+_onPassChange: (event) => dispatch(passChangedActionCreator(event.target.value))
 })
 
 

@@ -23,6 +23,11 @@ export default (state = initialState, action) => {
                 ...state,
                 email: action.newValue,
             }
+        case PASS_CHANGED:
+            return {
+                ...state,
+                password: action.newValue,
+            }
 
         default:
             return state
