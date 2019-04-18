@@ -9,14 +9,15 @@ const Auth = (props) => (
                 props.children
                 :
                 <Forms
-                    email={}
-                    password={}
+                    email={''}
+                    password={''}
 
-                    onEmailChange={}
-                    onPasswordChange={}
+                    onEmailChange={() => { }}
+                    onPasswordChange={() => { }}
 
-                    onLogInClick={}
-                    onLogInByGoogleClick={}
+                    onLogInClick={() => { }}
+
+                    onLogInByGoogleClick={() => { }}
                 />
         }
 
