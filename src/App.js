@@ -1,7 +1,11 @@
-import React from 'react';
+import React from 'react'
+import moment from 'moment'
+import 'moment/locale/pl'
 
 import { connect } from 'react-redux';
 import { logOut } from './state/auth'
+
+moment.locale('pl')
 
 const App = (props) => (
   <div>
@@ -18,7 +22,7 @@ const App = (props) => (
             <div
               key={key}
             >
-              {value.timestamp}
+              {moment(value.timestamp).format('LLL')}
             </div>
           )
         )
