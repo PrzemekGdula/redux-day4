@@ -2,7 +2,7 @@ import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 
 import auth, {
-    startListeningToAuthChangesAsyncctionCreator
+    startListeningToAuthChangesAsyncActionCreator
 } from './state/auth'
 
 const rootReducer = combineReducers({
@@ -18,4 +18,4 @@ export const store = createStore(
     )
 )
 
-store.dispatch(startListeningToAuthChangesAsyncctionCreator())
+store.dispatch(startListeningToAuthChangesAsyncActionCreator())

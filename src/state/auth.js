@@ -4,13 +4,13 @@ const EMAIL_CHANGED = 'auth/EMAIL_CHANGED'
 const PASS_CHANGED = 'auth/PASS_CHANGED'
 const SET_USER = 'auth/SET_USER'
 
-export const startListeningToAuthChangesAsyncctionCreator = (
+export const startListeningToAuthChangesAsyncActionCreator = (
     () => (dispatch, getState) => {
         auth.onAuthStateChanged(
             (user) => {
-                if (user)  {
+                if (user) {
                     //USER LOGGED IN
-                }else {
+                } else {
                     // USER NOT LOGGED IN
                 }
                 console.log(user)
@@ -30,6 +30,13 @@ export const logInAsyncActionCreator = () => (dispatch, getState) => {
         .then(() => console.log('ZALOGOWANO'))
         .catch((error) => console.log('WYSTĄPIŁ BŁĄD', error))
 }
+
+export const logInByGoogleAsyncActionCreator = () => (dispatch, getState) => {
+    auth.signInWithPopup(googleProvider)
+        .then(() => console.log('ZALOGOWANO'))
+        .catch((error) => console.log('WYSTĄPIŁ BŁĄD', error))
+}
+
 
 const setUserActionCreator = user => ({
     type: SET_USER,
