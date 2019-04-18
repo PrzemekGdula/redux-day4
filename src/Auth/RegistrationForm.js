@@ -2,7 +2,7 @@ import React from 'react'
 
 const RegistrationForm = (props) => (
     <div>
-        RegistrationForm
+        Registration Form
     </div>
 )
 
