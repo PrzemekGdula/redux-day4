@@ -11,14 +11,27 @@ export const startListeningToAuthChangesAsyncActionCreator = (
             (user) => {
                 console.log(user)
                 dispatch(setUserActionCreator(user))
+
                 if (user) {
                     //USER LOGGED IN
+                    dispatch(setUserActionCreator(user))
                     dispatch(logUserLoginsAsyncActionCreator())
+                    dispatch(startListeningUserLoginsLogsAsyncActionCreator())
                 } else {
                     // USER NOT LOGGED IN
+                    dispatch(stopListeningUserLoginsLogsAsyncActionCreator())
+                    dispatch(setUserActionCreator(user))
                 }
             }
         )
+    }
+)
+export const stopListeningUserLoginsLogsAsyncActionCreator = (
+    () => (dispatch, getState) => {
+        const state = getState()
+        const userId = state.auth.user.uid
+
+        database.ref(`users/${userId}/login`).off()
     }
 )
 export const startListeningUserLoginsLogsAsyncActionCreator = (
