@@ -21,6 +21,16 @@ export const startListeningToAuthChangesAsyncActionCreator = (
     }
 )
 
+export const logUserLoginsAsyncActionCreator = () => (dispatch, getState) => {
+    const state = getState()
+    const userId = state.auth.user.uid
+
+    database.ref(`users/${userId}/login`)
+        .push({
+            timestamp: Date.now(),
+        })
+}
+
 export const logInAsyncActionCreator = () => (dispatch, getState) => {
     const state = getState()
     const email = state.auth.email
