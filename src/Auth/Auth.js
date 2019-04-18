@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { connect } from 'react-redux'
+
 import Forms from './Forms'
 
 const Auth = (props) => (
@@ -9,8 +11,8 @@ const Auth = (props) => (
                 props.children
                 :
                 <Forms
-                    email={''}
-                    password={''}
+                    email={props._email}
+                    password={props._password}
 
                     onEmailChange={() => { }}
                     onPasswordChange={() => { }}
@@ -24,4 +26,12 @@ const Auth = (props) => (
     </div>
 )
 
-export default Auth
+const mapStateToProps = state => ({
+    _user: state.auth.user,
+    _email: state.auth.email,
+    _password: state.auth.password,
+})
+
+export default connect(
+    mapStateToProps
+)(Auth)
