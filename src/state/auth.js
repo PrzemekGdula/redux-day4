@@ -3,6 +3,7 @@ import { auth, googleProvider, database } from '../firebaseConf'
 const EMAIL_CHANGED = 'auth/EMAIL_CHANGED'
 const PASS_CHANGED = 'auth/PASS_CHANGED'
 const SET_USER = 'auth/SET_USER'
+const SET_USER_LOGINS_LOGS = 'auth/SET_USER_LOGINS_LOG'
 
 export const startListeningToAuthChangesAsyncActionCreator = (
     () => (dispatch, getState) => {
@@ -18,20 +19,35 @@ export const startListeningToAuthChangesAsyncActionCreator = (
                 }
             }
         )
-
     }
 )
+export const startListeningUserLoginsLogsAsyncActionCreator = (
+    () => (dispatch, getState) => {
+        const state = getState()
+        const userId = state.auth.user.uid
 
-export const logUserLoginsAsyncActionCreator = () => (dispatch, getState)=>{
+        database.ref(`users/${userId}/login`)
+            .on(
+                'value',
+                (snapshot) => {
+                    dispatch(
+                        setUserLoginsLogsActionCreator(
+                            snapshot.val()
+                        )
+                    )
+                }
+            )
+    }
+)
+export const logUserLoginsAsyncActionCreator = () => (dispatch, getState) => {
     const state = getState()
     const userId = state.auth.user.uid
 
     database.ref(`users/${userId}/login`)
-    .push({
-        timestamp: Date.now(),
-    })
+        .push({
+            timestamp: Date.now(),
+        })
 }
-
 export const logInAsyncActionCreator = () => (dispatch, getState) => {
     const state = getState()
     const email = state.auth.email
@@ -41,7 +57,6 @@ export const logInAsyncActionCreator = () => (dispatch, getState) => {
         .then(() => console.log('ZALOGOWANO'))
         .catch((error) => console.log('WYSTĄPIŁ BŁĄD', error))
 }
-
 export const logInByGoogleAsyncActionCreator = () => (dispatch, getState) => {
     auth.signInWithPopup(googleProvider)
         .then(() => console.log('ZALOGOWANO'))
@@ -51,6 +66,10 @@ export const logOut = () => (dispatch, getState) => {
     auth.signOut()
 }
 
+const setUserLoginsLogsActionCreator = data => ({
+    type: SET_USER_LOGINS_LOGS,
+    data,
+})
 
 const setUserActionCreator = user => ({
     type: SET_USER,
@@ -67,6 +86,7 @@ export const passChangedActionCreator = newValue => ({
 })
 
 const initialState = {
+    userLoginsLogs: null,
     user: null,
     email: '',
     password: '',
@@ -89,7 +109,11 @@ export default (state = initialState, action) => {
                 ...state,
                 user: action.user,
             }
-
+        case SET_USER_LOGINS_LOGS:
+            return {
+                ...state,
+                userLoginsLogs: action.data,
+            }
         default:
             return state
     }
