@@ -8,27 +8,28 @@ export const startListeningToAuthChangesAsyncActionCreator = (
     () => (dispatch, getState) => {
         auth.onAuthStateChanged(
             (user) => {
+                console.log(user)
+                dispatch(setUserActionCreator(user))
                 if (user) {
                     //USER LOGGED IN
+                    dispatch(logUserLoginsAsyncActionCreator())
                 } else {
                     // USER NOT LOGGED IN
                 }
-                console.log(user)
-                dispatch(setUserActionCreator(user))
             }
         )
 
     }
 )
 
-export const logUserLoginsAsyncActionCreator = () => (dispatch, getState) => {
+export const logUserLoginsAsyncActionCreator = () => (dispatch, getState)=>{
     const state = getState()
     const userId = state.auth.user.uid
 
     database.ref(`users/${userId}/login`)
-        .push({
-            timestamp: Date.now(),
-        })
+    .push({
+        timestamp: Date.now(),
+    })
 }
 
 export const logInAsyncActionCreator = () => (dispatch, getState) => {
