@@ -36,6 +36,9 @@ export const logInByGoogleAsyncActionCreator = () => (dispatch, getState) => {
         .then(() => console.log('ZALOGOWANO'))
         .catch((error) => console.log('WYSTĄPIŁ BŁĄD', error))
 }
+export const logOut = () => (dispatch, getState) => {
+    auth.signOut()
+}
 
 
 const setUserActionCreator = user => ({

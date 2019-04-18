@@ -3,10 +3,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import {
     emailChangedActionCreator,
-     passChangedActionCreator,
-      logInAsyncActionCreator,
-      logInByGoogleAsyncActionCreator,
-    } from '../state/auth'
+    passChangedActionCreator,
+    logInAsyncActionCreator,
+    logInByGoogleAsyncActionCreator,
+} from '../state/auth'
 
 import Forms from './Forms'
 
@@ -39,10 +39,10 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-_onEmailChange: (event)=> dispatch(emailChangedActionCreator(event.target.value)),
-_onPasswordChange: (event) => dispatch(passChangedActionCreator(event.target.value)),
-_logIn: () => dispatch(logInAsyncActionCreator()),
-_logInByGoogle: () => dispatch(logInByGoogleAsyncActionCreator()),
+    _onEmailChange: (event) => dispatch(emailChangedActionCreator(event.target.value)),
+    _onPasswordChange: (event) => dispatch(passChangedActionCreator(event.target.value)),
+    _logIn: () => dispatch(logInAsyncActionCreator()),
+    _logInByGoogle: () => dispatch(logInByGoogleAsyncActionCreator()),
 })
 
 
